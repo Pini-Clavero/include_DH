@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head')  %> 
+
+  <body>
+    <%- include('partials/header') %>
+    <title>Detalles</title>
+
+    <main class="mainProductDetail">
+        <div class="pageName">
+            <h2 class="titleDetail">PRODUCTO</h2>
+            <h4 class="subtitleDetail">(Home > <%= products.categories.category %> > <%= products.name %> - <%= products.colors.color %>)</h4>
+        </div>
+        <div class="imageDetailANDcharacteristicsDetail">
+            <div class="imageDetail">
+                    <div class="imageBig">
+                        <img class="imagenDetail" src="/images/products/<%= products.image %>" alt="<%= products.name %> ">
+                    </div>
+                    <div class="carrousel">
+                        <img class="imagenDetailCarrusel" src="/images/products/<%= products.image2 %>" alt="<%= products.name %> ">
+                        <img class="imagenDetailCarrusel" src="/images/products/<%= products.image3 %>" alt="<%= products.name %> ">
+                        <img class="imagenDetailCarrusel" src="/images/products/<%= products.image4 %>" alt="<%= products.name %> ">
+                        <img class="imagenDetailCarrusel" src="/images/products/<%= products.image5 %>" alt="<%= products.name %> ">
+                    </div>
+        
+                    <div class="colors">
+                        <label class="labelColor">Color:</label>
+                        <p><%= products.colors.color %></p>
+                    </div>
+            </div>
+            <div class="characteristicsDetail"><!-- caracteristicas del producto -->
+                <div>
+                    <h2 class="productNameDetail"><%= products.name %></h2>
+                    <h3 class="priceDetail">$<%= products.price %></h3>
+                </div>
+                <div class="acordeon">
+                    <div class="bloqueAcordeon">
+                        <h2 class="itemDetail"><span class="down1"><i class="neonIcon fa-solid fa-angles-down"></i></span></i>Descripcion</h2>
+                        <p class="descriptionDetail"><%= products.description%></p>
+                    </div>
+                    <div class="bloqueAcordeon">
+                        <h2 class="itemDetail"><span class="down2"><i class="neonIcon fa-solid fa-angles-down"></i></span></i>Caracteristicas</h2>
+                        <div class="descriptionDetail">
+                            <ul class="ulCaracteristicas">
+                                <li><%= products.characteristics %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bloqueAcordeon">
+                        <h2 class="itemDetail"><span class="down3"><i class="neonIcon fa-solid fa-angles-down"></i></span>Dimensionamiento</h2>
+                        <div class="descriptionDetail">
+                            <p class="descriptionDetail"><%= products.sizing %></p>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+
+
+                <div class="tallesForm">
+                        <label class="labelTalles" for="talleSelect">Talles disponibles</label>
+                        <div class="contenedorTalles">
+                            <button class="inputContenedorTalles" name="talleSelect" type="submit" value="<%= products.sizes.id%>"><%= products.sizes.size%>
+                        </div>
+                        
+                        <div class="quantity">
+                            <button data-decrease-quantity="">−</button>
+                            <input data-quantity-input="" aria-label="Quantity" type="number" min="1" size="4" pattern="[0-9]*" name="quantity" value="1">
+                            <button  data-increase-quantity="">+</button>
+                        </div>
+                        
+                        
+                        <% if (userLogueado.permissionId != 1) { %>
+                            <a href="/products/productCart"><button class="addToCart" type="submit" value="addToShop">Agregar al carrito <i class="fa-solid fa-angles-right"></i> $<%= products.price%></button></a>
+                        <% } %>
+                    <form class='formularioCreateProducts' method="POST" action="/products/<%= products.id %>?_method=DELETE">
+                    <% if (userLogueado.permissionId == 1) { %>
+                        <button class="form-button" type="submit" id="delete">Eliminar Producto</button>
+                        </form>
+                        <button class="form-button"><a href="/products/<%= products.id %>/edit">Editar Producto</a></button>
+                        
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </main>
+    <script>
+    let deleteButton = document.querySelector("#delete");
+    deleteButton.addEventListener("click", (e)=> {
+        let confirmar = confirm("¿Estás segurx que querés borrar este producto?");
+        if(confirmar){
+        }else{
+            e.preventDefault();
+        }
+    })       
+    </script>
+    <%- include('partials/footer')  %> 
+    
+</body>
+</html>
