@@ -2,7 +2,7 @@ const express = require ('express')
 const path = require ('path')
 const app = express();                                          
 const publicPth = path.resolve(__dirname, '../public');
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const mainRouter = require('./routes/main.js');
 const productRouter = require('./routes/products.js');
 const userRouter = require('./routes/users.js');
@@ -23,7 +23,7 @@ app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs'); // esto para que era???
 
 // LEVANTAMOS EL PUERTO
-app.listen(PORT, () => {
+app.listen(port, () => {
     console.log('Servidor Corriendo en el Puerto 3000');
 });
 
